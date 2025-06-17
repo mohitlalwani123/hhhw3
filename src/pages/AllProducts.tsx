@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Heart, ChevronDown, ShoppingBag } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
+import { products } from '../data/products';
 
 const AllProducts = () => {
   const { state, dispatch } = useAppContext();
@@ -14,86 +16,10 @@ const AllProducts = () => {
   const [isAvailabilityOpen, setIsAvailabilityOpen] = useState(false);
   const [isPriceOpen, setIsPriceOpen] = useState(false);
 
-  const products = [
-    {
-      id: 1,
-      name: 'AURORA EDGE EARRING',
-      price: 599,
-      originalPrice: 1200,
-      image: 'https://images.pexels.com/photos/1191536/pexels-photo-1191536.jpeg?auto=compress&cs=tinysrgb&w=400',
-      sale: true,
-      soldOut: true,
-      category: 'earrings'
-    },
-    {
-      id: 2,
-      name: 'BOLD BLOOM EARRING',
-      price: 599,
-      originalPrice: 1100,
-      image: 'https://images.pexels.com/photos/1191536/pexels-photo-1191536.jpeg?auto=compress&cs=tinysrgb&w=400',
-      sale: true,
-      category: 'earrings'
-    },
-    {
-      id: 3,
-      name: 'CHERISH EARRING',
-      price: 799,
-      originalPrice: 1200,
-      image: 'https://images.pexels.com/photos/1191536/pexels-photo-1191536.jpeg?auto=compress&cs=tinysrgb&w=400',
-      sale: true,
-      category: 'earrings'
-    },
-    {
-      id: 4,
-      name: 'CLASSIC CHAIN BRACELET',
-      price: 999,
-      originalPrice: 1299,
-      image: 'https://images.pexels.com/photos/1617067/pexels-photo-1617067.jpeg?auto=compress&cs=tinysrgb&w=400',
-      sale: true,
-      category: 'bracelets'
-    },
-    {
-      id: 5,
-      name: 'ECHO DROP EARRING',
-      price: 999,
-      originalPrice: 1200,
-      image: 'https://images.pexels.com/photos/1191536/pexels-photo-1191536.jpeg?auto=compress&cs=tinysrgb&w=400',
-      sale: true,
-      category: 'earrings'
-    },
-    {
-      id: 6,
-      name: 'ETERNA DUO KADA',
-      price: 899,
-      originalPrice: 999,
-      image: 'https://images.pexels.com/photos/1617067/pexels-photo-1617067.jpeg?auto=compress&cs=tinysrgb&w=400',
-      sale: true,
-      category: 'bracelets'
-    },
-    {
-      id: 7,
-      name: 'FOXY HEART EARRING',
-      price: 649,
-      originalPrice: 1200,
-      image: 'https://images.pexels.com/photos/1191536/pexels-photo-1191536.jpeg?auto=compress&cs=tinysrgb&w=400',
-      sale: true,
-      category: 'earrings'
-    },
-    {
-      id: 8,
-      name: 'NOVA KADA',
-      price: 999,
-      originalPrice: 1200,
-      image: 'https://images.pexels.com/photos/1617067/pexels-photo-1617067.jpeg?auto=compress&cs=tinysrgb&w=400',
-      sale: true,
-      category: 'bracelets'
-    }
-  ];
-
   const collections = [
     { name: 'Home', count: 0 },
-    { name: 'Shop By', count: 19 },
-    { name: 'All Products', count: 19 },
+    { name: 'Shop By', count: products.length },
+    { name: 'All Products', count: products.length },
     { name: 'Track Order', count: 0 },
     { name: 'Contact', count: 0 }
   ];
@@ -114,9 +40,9 @@ const AllProducts = () => {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex gap-8">
-          {/* Sidebar Filters */}
-          <div className="w-1/4 space-y-6">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Sidebar Filters - Hidden on mobile, can be toggled */}
+          <div className="w-full lg:w-1/4 space-y-6">
             <div>
               <h3 className="text-lg font-medium text-gray-900 mb-4">FILTER:</h3>
             </div>
@@ -166,11 +92,11 @@ const AllProducts = () => {
                 <div className="mt-4 space-y-3">
                   <label className="flex items-center">
                     <input type="checkbox" className="mr-3" />
-                    <span className="text-sm text-gray-600">In stock (18)</span>
+                    <span className="text-sm text-gray-600">In stock ({products.filter(p => !p.soldOut).length})</span>
                   </label>
                   <label className="flex items-center">
                     <input type="checkbox" className="mr-3" />
-                    <span className="text-sm text-gray-600">Out of stock (1)</span>
+                    <span className="text-sm text-gray-600">Out of stock ({products.filter(p => p.soldOut).length})</span>
                   </label>
                 </div>
               )}
@@ -220,51 +146,61 @@ const AllProducts = () => {
           </div>
 
           {/* Products Grid */}
-          <div className="w-3/4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="w-full lg:w-3/4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {products.map((product) => {
                 const isInWishlist = state.wishlist.find(item => item.id === product.id);
                 
                 return (
                   <div key={product.id} className="group cursor-pointer">
-                    <div className="relative overflow-hidden rounded-lg bg-gray-100 aspect-square mb-4">
-                      {product.sale && (
-                        <div className="absolute top-4 left-4 bg-brand text-white px-3 py-1 text-sm font-medium rounded z-10">
-                          Sale
-                        </div>
-                      )}
-                      {product.soldOut && (
-                        <div className="absolute top-4 right-12 bg-red-500 text-white px-3 py-1 text-sm font-medium rounded z-10">
-                          Sold Out
-                        </div>
-                      )}
-                      <button 
-                        onClick={() => toggleWishlist(product)}
-                        className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow z-10"
-                      >
-                        <Heart className={`h-4 w-4 transition-colors ${
-                          isInWishlist ? 'text-red-500 fill-current' : 'text-gray-600 hover:text-red-500'
-                        }`} />
-                      </button>
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      {!product.soldOut && (
-                        <button
-                          onClick={() => addToCart(product)}
-                          className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-brand text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-hover transition-colors opacity-0 group-hover:opacity-100 flex items-center space-x-2"
+                    <Link to={`/product/${product.id}`}>
+                      <div className="relative overflow-hidden rounded-lg bg-gray-100 aspect-square mb-4">
+                        {product.sale && (
+                          <div className="absolute top-4 left-4 bg-brand text-white px-3 py-1 text-sm font-medium rounded z-10">
+                            Sale
+                          </div>
+                        )}
+                        {product.soldOut && (
+                          <div className="absolute top-4 right-12 bg-red-500 text-white px-3 py-1 text-sm font-medium rounded z-10">
+                            Sold Out
+                          </div>
+                        )}
+                        <button 
+                          onClick={(e) => {
+                            e.preventDefault();
+                            toggleWishlist(product);
+                          }}
+                          className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow z-10"
                         >
-                          <ShoppingBag className="h-4 w-4" />
-                          <span>Add to Cart</span>
+                          <Heart className={`h-4 w-4 transition-colors ${
+                            isInWishlist ? 'text-red-500 fill-current' : 'text-gray-600 hover:text-red-500'
+                          }`} />
                         </button>
-                      )}
-                    </div>
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        {!product.soldOut && (
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              addToCart(product);
+                            }}
+                            className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-brand text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-hover transition-colors opacity-0 group-hover:opacity-100 flex items-center space-x-2"
+                          >
+                            <ShoppingBag className="h-4 w-4" />
+                            <span>Add to Cart</span>
+                          </button>
+                        )}
+                      </div>
+                    </Link>
                     <div className="text-center">
-                      <h3 className="text-sm font-medium text-gray-900 mb-2">
-                        {product.name}
-                      </h3>
+                      <Link to={`/product/${product.id}`}>
+                        <h3 className="text-sm font-medium text-gray-900 mb-2 hover:text-brand transition-colors">
+                          {product.name}
+                        </h3>
+                      </Link>
                       <div className="flex items-center justify-center space-x-2">
                         <span className="text-lg font-bold text-gray-900">
                           Rs. {product.price.toLocaleString()}.00
