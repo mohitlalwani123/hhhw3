@@ -14,7 +14,7 @@ const AnnouncementBanner = () => {
           💎 HANDCRAFTED JEWELRY WITH LOVE - SHOP NOW AND SAVE UP TO 50% 💎
         </span>
         <span className="text-sm font-medium mx-8">
-          ⭐ TRUSTED BY THOUSANDS - RADIANT REFLECTION JEWELRY COLLECTION ⭐
+          ⭐ TRUSTED BY THOUSANDS - RRADIANT REFLETION JEWELRY COLLECTION ⭐
         </span>
         <span className="text-sm font-medium mx-8">
           ✨ NEW ARRIVALS NOW AVAILABLE - FREE SHIPPING ON ORDERS OVER ₹1000 ✨
@@ -26,7 +26,7 @@ const AnnouncementBanner = () => {
           💎 HANDCRAFTED JEWELRY WITH LOVE - SHOP NOW AND SAVE UP TO 50% 💎
         </span>
         <span className="text-sm font-medium mx-8">
-          ⭐ TRUSTED BY THOUSANDS - RADIANT REFLECTION JEWELRY COLLECTION ⭐
+          ⭐ TRUSTED BY THOUSANDS - RRADIANT REFLETION JEWELRY COLLECTION ⭐
         </span>
       </div>
     </div>

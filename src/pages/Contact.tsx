@@ -58,8 +58,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-1">Email Us</h3>
-                  <p className="text-gray-600">radiantreflection.customercare@gmail.com</p>
-                  <p className="text-gray-600">support@radiantreflection.com</p>
+                  <p className="text-gray-600">rradiantrefletion.customercare@gmail.com</p>
+                  <p className="text-gray-600">support@rradiantrefletion.com</p>
                 </div>
               </div>
 

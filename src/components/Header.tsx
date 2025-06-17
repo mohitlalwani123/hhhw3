@@ -55,11 +55,11 @@ const Header = () => {
               <div className="flex items-center justify-center mb-1">
                 <img 
                   src="/rradiant-logo.jpg" 
-                  alt="RRadiant Reflection Logo" 
+                  alt="RRadiant Refletion Logo" 
                   className="h-8 w-8 mr-2"
                 />
                 <div className="text-xl font-light tracking-wide text-gray-900">
-                  <span className="font-serif">RRADIANT REFLECTION</span>
+                  <span className="font-serif">RRADIANT REFLETION</span>
                 </div>
               </div>
               <div className="text-xs text-gray-600 italic font-light">
